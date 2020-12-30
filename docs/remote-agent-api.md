@@ -16,7 +16,7 @@ Table of Contents:
   * [The `check` method](#the-check-method)
 * [Example Agents](#example-agents)
 
-![img](../static/img/remote-agents-diagram.svg "Remote Agents diagram")
+![img](../static/img/diagrams/remote-agents-diagram.svg "Remote Agents diagram")
 
 ## Deployment
 
