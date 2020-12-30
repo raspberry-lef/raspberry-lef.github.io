@@ -75,7 +75,7 @@ Please note that while a free Heroku plan can be used to try out ActiveWorkflow,
 
 Once you have ActiveWorkflow up and running you will want to create some agents and most probably to arrange them in one or more workflows. You can use ActiveWorkflow via its web interface and its REST API. This is illustrated in the example diagram below where a1-a6 are six agents and w1-w3 are three workflows these agents participate in.
 
-<img src="img/diagrams/AW_usage_diagram.svg" alt="ActiveWorkflow system overview diagram" />
+![img](../static/img/diagrams/AW_usage_diagram.svg "ActiveWorkflow system overview diagram")
 
 You can read more about the [Typical Use Cases](use-cases) of ActiveWorkflow.
 

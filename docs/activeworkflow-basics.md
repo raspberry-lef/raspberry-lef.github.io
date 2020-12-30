@@ -38,16 +38,12 @@ Each instance of an agent is configured by giving it a name, setting its schedul
 selecting the sources of the messages it receives (other agents), and choosing
 among other common options:
 
-<img src="../static/img/screenshots/agent_edit_screenshot.png"
-     srcset="../static/img/screenshots/agent_edit_screenshot@2x.png"
-     alt="Agent configuration" />
+![img](../static/img/screenshots/agent_edit_screenshot.png "Agent configuration")
 
 Settings specific to a type of agent are often configured by editing
 the agent's "options", which are presented as a JSON document:
 
-<img src="img/screenshots/agent_edit_json_screenshot.png"
-     srcset="img/screenshots/agent_edit_json_screenshot@2x.png"
-     alt="Agent configuration with JSON" />
+![img](../static/img/screenshots/agent_edit_json_screenshot.png "Agent configuration with JSON")
 
 Each agent type has in-line documentation explaining its functionality
 and all its configuration options.
@@ -61,9 +57,7 @@ play. Agents sharing common goals can be organised into *workflows*.
 Workflows allow you to view and control groups of agents all at once. They can
 also be exported and imported, so you can share automation solutions as a unit.
 
-<img src="img/screenshots/workflow_diagram_screenshot.png"
-     srcset="img/screenshots/workflow_diagram_screenshot@2x.png"
-     alt="ActiveWorkflow workflow diagram" />
+![img](../static/img/screenshots/workflow_diagram_screenshot.png "ActiveWorkflow workflow diagram")
 
 It is important to understand that workflows are similar to labels or tags. One
 or more agents can be associated with one or more workflows but are not exclusive
