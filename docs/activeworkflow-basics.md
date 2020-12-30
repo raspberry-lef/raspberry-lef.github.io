@@ -38,8 +38,8 @@ Each instance of an agent is configured by giving it a name, setting its schedul
 selecting the sources of the messages it receives (other agents), and choosing
 among other common options:
 
-<img src="img/screenshots/agent_edit_screenshot.png"
-     srcset="img/screenshots/agent_edit_screenshot@2x.png"
+<img src="../static/img/screenshots/agent_edit_screenshot.png"
+     srcset="../static/img/screenshots/agent_edit_screenshot@2x.png"
      alt="Agent configuration" />
 
 Settings specific to a type of agent are often configured by editing
