@@ -1,4 +1,4 @@
-# Website
+# ActiveWorkflow docs website
 
 Documentation for [ActiveWorkflow](https://github.com/automaticmode/active_workflow).
 This website is built using [Docusaurus 2](https://v2.docusaurus.io/).
@@ -30,7 +30,7 @@ served using any static contents hosting service.
 ## Deployment
 
 ```console
-GIT_USER=<Your GitHub username> USE_SSH=true yarn deploy
+DEPLOYMENT_BRANCH=gh-pages GIT_USER=<GitHub username> yarn deploy
 ```
 
 If you are using GitHub pages for hosting, this command is a convenient way to
