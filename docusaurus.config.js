@@ -9,6 +9,7 @@ module.exports = {
   organizationName: 'raspberry-lef', // Usually your GitHub org/user name.
   projectName: 'raspberry-lef.github.io', // Usually your repo name.
   themeConfig: {
+    image: 'img/AW_preview.png',
     navbar: {
       title: 'ActiveWorkflow Documentation',
       logo: {
