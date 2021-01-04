@@ -1,7 +1,7 @@
 module.exports = {
   title: 'ActiveWorkflow Documentation',
   tagline: 'Turn complex requirements to workflows without leaving the comfort of your technology stack',
-  url: 'https://raspberry-lef.github.io',
+  url: 'https://docs.activeworkflow.org',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
