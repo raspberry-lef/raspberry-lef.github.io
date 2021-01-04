@@ -35,6 +35,11 @@ module.exports = {
     },
     footer: {
       style: 'dark',
+      logo: {
+        alt: 'Automatic Mode Labs Logo',
+        src: 'img/AML-logo.svg',
+        href: 'https://www.automaticmode.com',
+      },
       links: [
         // {
         //   title: 'Docs',
