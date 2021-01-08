@@ -33,6 +33,10 @@ module.exports = {
         },
       ],
     },
+    algolia: {
+      apiKey: '0b048d550c237f1098bcba9c82def19a',
+      indexName: 'activeworkflow',
+    },
     footer: {
       style: 'dark',
       logo: {
