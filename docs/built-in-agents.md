@@ -15,7 +15,7 @@ To write your own custom agents see [How to Create Your Own Custom Agents using 
 <table>
  <tr>
   <td><strong>Webhook&nbsp;Agent</strong></td>
-  <td>Creates messages by receiving webhooks from any source. You can use this agent to expose URLs that when called they could trigger one or more workflows.</td>
+  <td>Creates messages by receiving webhooks from any source. You can use this agent to expose URLs that can trigger one or more workflows when called.</td>
  </tr>
  <tr>
   <td><strong>Data&nbsp;Output&nbsp;Agent</strong></td>
@@ -23,7 +23,7 @@ To write your own custom agents see [How to Create Your Own Custom Agents using 
  </tr>
  <tr>
   <td><strong>HTTP&nbsp;Status&nbsp;Agent</strong></td>
-  <td>Checks a given URL and emits the resulting HTTP status code with the time that it waited for a reply. Additionally, it will optionally emit the value of one or more specified headers. A simple example is using this agent to periodically check if a website is online.</td>
+  <td>Checks a given URL and emits the resulting HTTP status code with the time that it waited for a reply. It can optionally emit the value of one or more specified headers. A simple example is using this agent to periodically check if a website is online.</td>
  </tr>
   <tr>
   <td><strong>FTP Site Agent</strong></td>
@@ -35,15 +35,15 @@ To write your own custom agents see [How to Create Your Own Custom Agents using 
  </tr>
   <tr>
   <td><strong>RSS Agent</strong></td>
-  <td>Consumes RSS feeds and can emits messages when they change.</td>
+  <td>Consumes RSS feeds and emits messages when they change.</td>
  </tr>
   <tr>
   <td><strong>Email Agent</strong></td>
-  <td>Sends emails based on messages it receives.</td>
+  <td>Sends emails based on messages received.</td>
  </tr>
   <tr>
   <td><strong>Email&nbsp;Digest&nbsp;Agent</strong></td>
-  <td>Collects any messages sent to it and sends them all via periodic emails according to schedule.</td>
+  <td>Collects messages and sends them in bulk via periodic emails according to schedule.</td>
  </tr>
   <tr>
   <td><strong>IMAP Folder Agent</strong></td>
@@ -55,9 +55,9 @@ To write your own custom agents see [How to Create Your Own Custom Agents using 
  </tr>
 </table>
 
-## Workflow and Data Processing Agents
+## Workflow and Message Processing Agents
 
-> These are agents that control the workflow and perform common and simple data processing operations.
+> These agents control the workflow and perform common and simple message processing operations.
 
 <table>
  <tr>
@@ -66,7 +66,7 @@ To write your own custom agents see [How to Create Your Own Custom Agents using 
  </tr>
  <tr>
   <td><strong>Buffer Agent</strong></td>
-  <td>Stores the messages it receives and emits copies of periodically according to schedule. You can use this as a buffer/queue of messages.</td>
+  <td>Stores the messages it receives and emits copies of them periodically, according to schedule. You can use this as a buffer/queue of messages.</td>
  </tr>
  <tr>
   <td><strong>Post Agent</strong></td>
