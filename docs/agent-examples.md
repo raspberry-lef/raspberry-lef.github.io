@@ -6,9 +6,10 @@ sidebar_label: Examples of Remote Agents
 
 Below you will find examples of ActiveWorkflow agents.
 
-* [Simple ActiveWorkflow agent in Python](https://github.com/automaticmode/aw_python_sample_agent) by Automatic Mode Labs.
-* [Bare bones agent to kickstart ActiveWorkflow implementations using Python 3 and FastAPI](https://gitlab.gwdg.de/medinfpub/umg-medic/technik/aw-agents/agent-barebone) authored by UMG MeDIC Technik Gruppe.
-* [File Mover Agent](https://gitlab.gwdg.de/medinfpub/umg-medic/technik/aw-agents/file_mover) (GPLv3) by UMG MeDIC. 
+* [Simple ActiveWorkflow agent in Python](https://github.com/automaticmode/aw_python_sample_agent).
+* [ActiveWorkflow Agent Example in Go](https://github.com/mjs/aw-golang_sample_agent).
+* [Bare bones agent to kickstart ActiveWorkflow implementations using Python 3 and FastAPI](https://gitlab.gwdg.de/medinfpub/umg-medic/technik/aw-agents/agent-barebone).
+* [File Mover Agent](https://gitlab.gwdg.de/medinfpub/umg-medic/technik/aw-agents/file_mover).
 
 ---
 
