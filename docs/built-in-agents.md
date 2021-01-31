@@ -4,9 +4,9 @@ title: Built-in Agents
 sidebar_label: Built-in Agents
 ---
 
-Below is a list of 30+ agents that come with ActiveWorkflow. These cover a wide spectrum of functionality and can be extensively configured and composed in workflows. Each agent comes with inline documentation within the web interface.
+Below is a list of agents that come bundled with ActiveWorkflow. These cover a wide spectrum of functionality and can be extensively configured and composed in workflows alongside your own agents.
 
-To write your own custom agents see [How to Create Your Own Custom Agents using the Remote Agent API](remote-agent-api).
+Each agent comes with inline documentation within ActiveWorkflow's web interface.
 
 ## Input/Output Agents
 
@@ -66,7 +66,7 @@ To write your own custom agents see [How to Create Your Own Custom Agents using 
   <tr>
     <td><strong>Liquid&nbsp;Output&nbsp;Agent</strong></td>
     <td>
-      Outputs messages through a Liquid template you provide. You can use it to create HTML pages, JSON feeds, or anything else that can be rendered as a string from your stream of ActiveWorkflow data.
+      Outputs messages through a <a href="https://shopify.github.io/liquid/">Liquid</a> template you provide. You can use it to create HTML pages, JSON feeds, or anything else that can be rendered as a string from your stream of ActiveWorkflow data.
     </td>
   </tr>
 </table>
@@ -162,7 +162,7 @@ To write your own custom agents see [How to Create Your Own Custom Agents using 
 
 > These agents use third party services to provide functionality. They typically require an account with the respective service providers.
 >
-> ⚠️ Please keep in mind that we will **remove** these agents from ActiveWorkflow core in an upcoming release.
+> ⚠️ Please keep in mind that we plan to **remove** these agents from ActiveWorkflow core in an upcoming release.
 
 <table>
   <tr>
@@ -198,3 +198,5 @@ To write your own custom agents see [How to Create Your Own Custom Agents using 
     <td>Lets you receive messages and send notifications to Slack.</td>
   </tr>
 </table>
+
+In the next section your will find examples of custom ActiveWorkflow agents in various languages. To write your own custom agents see [How to Create Your Own Custom Agents using the Remote Agent API](remote-agent-api).

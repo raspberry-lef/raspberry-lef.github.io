@@ -1,10 +1,10 @@
 ---
 id: agent-examples
-title: Examples of Remote Agents
-sidebar_label: Examples of Remote Agents
+title: Examples of Custom Agents
+sidebar_label: Examples of Custom Agents
 ---
 
-Below you will find examples of ActiveWorkflow agents.
+Below you will find examples of custom ActiveWorkflow agents written in various programming languages.
 
 * [Simple ActiveWorkflow agent in Python](https://github.com/automaticmode/aw_python_sample_agent).
 * [ActiveWorkflow agent example in Go](https://github.com/mjs/aw-golang_sample_agent).
@@ -13,4 +13,4 @@ Below you will find examples of ActiveWorkflow agents.
 
 ---
 
-If you have your own agent implementation(s) that you would like to share with the community, or know of any other examples please let us know!
+If you have your own agent implementation(s) that you would like to share with the community or know of any examples in the wild please let us know!

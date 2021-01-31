@@ -5,8 +5,8 @@ module.exports = {
       'use-cases',
       'activeworkflow-basics',
       'built-in-agents',
-      'remote-agent-api',
       'agent-examples',
+      'remote-agent-api',
       'rest-api',
       'deployment'
     ],

@@ -4,7 +4,7 @@ title: Typical Use Cases
 sidebar_label: Use Cases
 ---
 
-Your workflows usually (but not always) will fall into one or more of the following three use cases:
+ActiveWorkflow workflows usually (but not always) fall into one or more of the following three use cases:
 
 - **Periodic Execution**
 - **Polling**

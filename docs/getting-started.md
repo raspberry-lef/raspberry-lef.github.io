@@ -5,16 +5,15 @@ sidebar_label: Getting Started
 slug: /
 ---
 
-The purpose of this page is to help you to try out ActiveWorkflow as easily and quickly as possible. If you find something confusing, ambiguous or have any ideas for improvements please let us know!
+## About
 
-* [Running ActiveWorkflow](#running-activeworkflow)
-  * [Running Locally with Docker](#running-locally-with-docker)
-  * [Running Locally with Docker Compose](#running-locally-with-docker-compose)
-  * [Running Locally without Docker](#running-locally-without-docker)
-  * [Running on Heroku](#running-on-heroku)
-* [Using ActiveWorkflow](#using-activeworkflow)
-  * [Creating Agents](#creating-agents)
-  * [Creating Workflows](#creating-workflows)
+ActiveWorkflow works alongside your existing technology stack to give you an easy and structured way to:
+
+- **Group business logic for periodic execution**—for example, to generate and distribute a weekly PDF report.
+- **Poll resources**—for example, to check if a file has become available on S3.
+- **Orchestrate event-driven functionality**—for example, to trigger a customised email campaign in reaction to a pattern of user behaviour.
+
+You can do all of the above by creating, scheduling, and monitoring workflows of agents, which are self-contained services (or microservices) written in any programming language you choose. ActiveWorkflow as a platform gives you a simple way for connecting your agents (services), extensive logging, state management, and a foundation to build a scalable and reliable system without vendor lock-in.
 
 ## Running ActiveWorkflow
 
@@ -73,22 +72,28 @@ Another easy way to try out or to start using ActiveWorkflow is by deploying it 
 
 ## Using ActiveWorkflow
 
-Once you have ActiveWorkflow up and running you will want to create some agents and most probably to arrange them in one or more workflows. This is illustrated in the example diagram below where a1-a6 are six agents and w1-w3 are three workflows these agents participate in. Also note that you can use ActiveWorkflow via its web interface and its [Client REST API](rest-api).
+Once you have ActiveWorkflow up and running you will want to create instances of some agents and most probably to arrange them in one or more workflows. This is illustrated in the example diagram below where a1-a6 are six agents and w1-w3 are three workflows these agents participate in. Also note that you can use ActiveWorkflow via its web interface and its [Client REST API](rest-api).
 
 ![img](../static/img/diagrams/AW_usage_diagram.svg "ActiveWorkflow system overview diagram")
 
 You can read more about the [Typical Use Cases](use-cases) of ActiveWorkflow.
 
-### Creating Agents
+### Agents and Agent Instances
 
-There are currently three ways to create agents:
+Agents in ActiveWorkflow are similar to classes in object oriented programming. To use an agent you have to create one or more **instances** of it, each with its own name and configuration. This applies both to [built-in agents](built-in-agents) and your own agents, which you can write in any programming language and connect to ActiveWorkflow via the [Remote Agent API](remote-agent-api).
 
-1. You can create a new instance of a built-in agent by following the agent's configuration options and inline documentation. With [30+ built-in agents](built-in-agents) you have the ability to address quite a few  common use cases, such as polling external services.
-2. If the functionality you are looking for isn't available from any of the built-in agents, you could use the built-in JavaScript agent. This agent executes JavaScript code, which could send and receive messages while implementing your business logic.
-3. Last but not least, to make the most out of the platform you could write and connect your own ActiveWorkflow agents. See [How to Create Your Own Custom Agents (with the Remote Agent API)](remote-agent-api) to learn how to do this.
+#### Creating Agent Instances
+
+You can create agent instances using the web interface. In the near future you will be able to create agent instances programmatically as well by using the [Client REST API](rest-api).
+
+#### Creating Your Own Agents
+
+To make the most out of the platform you can write and connect your own agents. Your agents will appear on the web interface alongside the built-in agents and you can create multiple instances of them. Read about the [Remote Agent API](remote-agent-api) to see how you can create your own custom agents, and [Examples of Agents](agent-examples) to see examples of agents in various programming languages.
+
+It's also worth mentioning that to program custom logic you can also create instances of the built-in JavaScript agent. Instances of this agent execute JavaScript code that can send and receive messages while implementing your business logic.
 
 ### Creating Workflows
 
-To create a workflow you can simply use the web interface (the "New Workflow" button) to enter a name, description, select an icon for your workflow, and then link to it the agents that participate in it. As we mention in [ActiveWorkflow Basics](activeworkflow-basics) agents can participate in multiple workflows, and exist independently of them. In that respect a workflow is more like a "tag" or a "label" rather than a "container".
+To create a workflow you can simply use the web interface (the "New Workflow" button) to enter a name, a description, to select an icon for your workflow, and then to link to it the agent instances that participate in it. As we mention in [ActiveWorkflow Basics](activeworkflow-basics) each agent instance can participate in multiple workflows and functions regardless of whether it participates in any workflows or not. Workflows are more like 'tags' or 'labels' rather than 'containers' that contain the agent instances that participate in them.
 
-In the near future you will be able to create workflows programmatically as well (via the [Client REST API](rest-api)).
+In the near future you will also be able to create workflows programmatically via the [Client REST API](rest-api).
