@@ -15,6 +15,8 @@ ActiveWorkflow works alongside your existing technology stack to give you an eas
 
 You can do all of the above by creating, scheduling, and monitoring workflows of agents, which are self-contained services (or microservices) written in any programming language you choose. ActiveWorkflow as a platform gives you a simple way for connecting your agents (services), extensive logging, state management, and a foundation to build a scalable and reliable system without vendor lock-in.
 
+![img](../static/img/screenshots/workflows_screenshot.png "Screenshot of ActiveWorkflow's web UI")
+
 ## Running ActiveWorkflow
 
 Depending on what tools you are familiar with there are a few different ways you could run ActiveWorkflow:

@@ -158,45 +158,4 @@ Each agent comes with inline documentation within ActiveWorkflow's web interface
   </tr>
 </table>
 
-## Third-Party Service Agents
-
-> These agents use third party services to provide functionality. They typically require an account with the respective service providers.
->
-> ⚠️ Please keep in mind that we plan to **remove** these agents from ActiveWorkflow core in an upcoming release.
-
-<table>
-  <tr>
-    <td><strong>Evernote&nbsp;Agent</strong></td>
-    <td>Connects with a user’s Evernote note store.</td>
-  </tr>
-  <tr>
-    <td><strong>Basecamp Agent</strong></td>
-    <td>Checks a Basecamp project for new messages.</td>
-  </tr>
-  <tr>
-    <td><strong>S3 Agent</strong></td>
-    <td>It can watch a bucket for changes or emit a message for every file in that bucket. When receiving messages it writes the data into a file on S3.</td>
-  </tr>
-  <tr>
-    <td><strong>Jira Agent</strong></td>
-    <td>Subscribes to Jira issue updates.</td>
-  </tr>
-  <tr>
-    <td><strong>Twilio Agent</strong></td>
-    <td>Receives and collects messages, and sends them via text message, or calls when scheduled.</td>
-  </tr>
-  <tr>
-    <td><strong>Twilio Receive Text Agent</strong></td>
-    <td>Receives text messages from Twilio and emits them as messages.</td>
-  </tr>
-  <tr>
-    <td><strong>Aftership Agent</strong></td>
-    <td>Allows you to track your shipments from Aftership and emit tracking status into messages.</td>
-  </tr>
-  <tr>
-    <td><strong>Slack Agent</strong></td>
-    <td>Lets you receive messages and send notifications to Slack.</td>
-  </tr>
-</table>
-
 In the next section your will find examples of custom ActiveWorkflow agents in various languages. To write your own custom agents see [How to Create Your Own Custom Agents using the Remote Agent API](remote-agent-api).
