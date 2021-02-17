@@ -9,7 +9,7 @@ its functionality. A typical objective when using ActiveWorkflow is to group
 and automate functionality that would require either manual execution or
 ad-hoc pieces of code. Think along the lines of generating complex reports,
 querying of APIs, and orchestrating data pipelines. For more information about
-typical uses, please check [Uses Cases](use-cases). For a description
+typical uses, please check [Use Cases](use-cases). For a description
 of what exactly agents and workflows please read below.
 
 ## Agents
