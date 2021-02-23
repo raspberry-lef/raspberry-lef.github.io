@@ -38,7 +38,7 @@ updated and the new API would be served with a different URL.
 The ActiveWorkflow API uses a [JsonWebToken](https://jwt.io/introduction/)-based
 authorization mechanism. You can acquire an authorization token by connecting to
 the usual ActiveWorkflow web UI with you user email and password. You can then find
-it under `Account` in `Configure Services`.
+it under `Account` in `User Settings`.
 
 Note: an authorization token is connected to the account of a specific user and therefore
 can only provide access to the system only on behalf of that user.
