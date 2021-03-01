@@ -110,8 +110,8 @@ Where:
   unique identifier written in CamelCase;
 - `display_name`: the name of an agent to be used for UI purposes;
 - `description`: the (Markdown) description of an agent. It should include
-   an introduction and usage information, including a description of all
-   configuration options;
+   an introduction (the first line) and usage information, including a
+   description of all configuration options;
 - `default_options`: the default options that a user can use as a starting
    point when configuring an agent; this is an object (key/value collection).
 
