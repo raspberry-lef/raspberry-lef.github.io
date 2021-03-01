@@ -8,7 +8,8 @@ module.exports = {
       'agent-examples',
       'remote-agent-api',
       'rest-api',
-      'deployment'
+      'deployment',
+      'roadmap',
     ],
   },
 };
