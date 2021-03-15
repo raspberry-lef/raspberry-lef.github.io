@@ -4,7 +4,7 @@ title: Remote Agent API
 sidebar_label: Remote Agent API
 ---
 
-> How to Develop Your Own Activeworkflow Agents
+> The Way to Develop Your Own Activeworkflow Agents
 
 ## Overview
 
