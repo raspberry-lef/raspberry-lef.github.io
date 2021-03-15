@@ -35,7 +35,11 @@ All requests have the following structure:
 }
 ```
 
-Where `method` is the name of the method, `params` is a JSON object (key/value pairs) that holds all the parameters to the `method` call.
+Where `method` is the name of the method, and `params` is a JSON object
+(key/value pairs) that holds all the parameters to the method call. The
+content of `params` varies depending on the method called. For more details
+on the structure of `params` please see the documentation about each
+method below.
 
 > ⚠️ Additional fields may be present in the request's JSON object, please
 > only use the ones described in this document. Any additional fields are not
@@ -51,7 +55,8 @@ A response from the agent should have the following structure:
 }
 ```
 
-Where `result` is a JSON object (key/value pairs).
+Where `result` is a JSON object (key/value pairs). For more details on the
+structure of `result` please see the documentation about each method below.
 
 
 ### Methods
