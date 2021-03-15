@@ -13,7 +13,7 @@ agents and workflows programmatically. All responses returned by the API are
 in JSON format.
 
 Currently the API is read-only, which is useful for implementing dashboards or
-for getting the results of various workflows and feeding them into other systems.
+for acquiring the results of various workflows and feeding them into other systems.
 The REST API will be expanded as we go forward.
 
 ## Versioning
@@ -59,7 +59,9 @@ curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.kG4Si_1WJ
 
 ## Endpoints
 
-### `GET /api/v1/agents`
+### Agents
+
+#### `GET /api/v1/agents`
 
 List all of a user's agents.
 
@@ -103,7 +105,7 @@ GET /api/v1/agents
 ]
 ```
 
-### `GET /api/v1/agents/:agent_id`
+#### `GET /api/v1/agents/:agent_id`
 
 Get info on specific agent.
 
@@ -136,13 +138,13 @@ GET /api/v1/agents/1
 }
 ```
 
-### `GET /api/v1/agents/:agent_id/messages`
+#### `GET /api/v1/agents/:agent_id/messages`
 
 Get the latest messages emitted by the agent.
 
 Parameters:
 
-`after` - datetime (iso8601 string), only return the messages that where created
+`after` - datetime (ISO 8601 string), only return the messages that where created
           *after* the given time;
 
 `limit` - integer, only return this number of the *latest* created messages. By
@@ -153,9 +155,9 @@ following key/value pairs:
 
 - `id` - identifier of the message;
 - `agent_id` - identifier of emitting agent;
-- `created_at` - datetime (iso8601 string) of when the message was created;
-- `expires_at` - datetime (iso8601 string) of when the message expires, never if
-                 null.
+- `created_at` - datetime (ISO 8601 string) of when the message was created;
+- `expires_at` - datetime (ISO 8601 string) of when the message expires,
+                 never if null.
 
 Example:
 
@@ -180,7 +182,9 @@ GET /api/v1/agents/1/messages?limit=1&after=2019-10-20T01:10:10.256-8:00
 ]
 ```
 
-### `GET /api/v1/messages/:message_id`
+### Messages
+
+#### `GET /api/v1/messages/:message_id`
 
 Get the message with the payload.
 
@@ -190,8 +194,8 @@ Response - a hash representing a message with the following key/value pairs:
 
 - `id` - identifier of a message;
 - `agent_id` - identifier of emitting agent;
-- `created_at` - datetime (iso8601 string) of when a message was created;
-- `expires_at` - datetime (iso8601 string) of when a message expires, never if
+- `created_at` - datetime (ISO 8601 string) of when a message was created;
+- `expires_at` - datetime (ISO 8601 string) of when a message expires, never if
                  null;
 - `payload` - JSON document containing payload of the message.
 
@@ -214,7 +218,9 @@ GET /api/v1/messages/1
 }
 ```
 
-### `GET /api/v1/workflows`
+### Workflows
+
+#### `GET /api/v1/workflows`
 
 Get a list of workflows.
 
@@ -243,9 +249,9 @@ GET /api/v1/workflows
 ]
 ```
 
-### `GET /api/v1/workflows/:workflow_id`
+#### `GET /api/v1/workflows/:workflow_id`
 
-Get a workflow *with* a list of agents that participate in that workflow.
+Get a workflow with a list of agents that participate in that workflow.
 
 Parameters - none.
 
@@ -291,7 +297,7 @@ GET /api/v1/workflows/1
 }
 ```
 
-### `GET /api/v1/workflows/:workflow_id/export`
+#### `GET /api/v1/workflows/:workflow_id/export`
 
 Get a file with the workflow and all its agents, which can be used later to
 import the workflow into another instance of ActiveWorkflow (or as a different
@@ -312,11 +318,9 @@ GET /api/v1/workflows/1/export
 
 ## Errors
 
-The API responds to failures using standard HTTP status codes. Additionally with a JSON
-document containing a single key `error` where its value is a short description of the
-error.
-
-For example:
+The API responds to failures with standard HTTP status codes and a JSON
+document that contains an `error` key. Its value is a short description of
+the error. For example:
 
 ```json
 {
@@ -327,6 +331,6 @@ For example:
 Supported errors are:
 
 - `401` - unauthorized, authorization header is missing or is invalid;
-- `404` - record (agent, workflow of message) not found;
+- `404` - record (agent, workflow or message) not found;
 - `500` - other unclassified errors (for now it includes parameter validation
           errors).
