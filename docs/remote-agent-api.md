@@ -56,7 +56,8 @@ Where `result` is a JSON object (key/value pairs).
 
 ### Methods
 
-There are three methods an agent has to implement.
+An agent has to **implement responses to 3 methods: [register](#the-register-method),
+[check](#the-check-method), [receive](#the-receive-method)**. 
 
 #### The `register` method
 
