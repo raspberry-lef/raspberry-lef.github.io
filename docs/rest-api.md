@@ -6,32 +6,26 @@ sidebar_label: Client REST API
 
 > How to Query and Control Your Agents and Workflows Programmatically
 
-ActiveWorkflow exposes a REST API that allows you to query and control your agents and workflows programmatically.
+## Overview
 
-Currently the API is read-only, which is helpful for implementing dashboards or for getting the results of various workflows and feeding them into other systems. The REST API will be expanded as we go forward. All responses returned by ActiveWorkflow's API are in JSON format.
+ActiveWorkflow exposes a REST API that allows you to query and control your
+agents and workflows programmatically. All responses returned by the API are
+in JSON format.
 
-Table of Contents:
-* [Versioning](#versioning)
-* [Authorization](#authorization)
-* [Endpoints](#Endpoints)
-  * [`GET /api/v1/agents`](#get-apiv1agents)
-  * [`GET /api/v1/agents/:agent_id`](#get-apiv1agentsagent_id)
-  * [`GET /api/v1/agents/:agent_id/messages`](#get-apiv1agentsagent_idmessages)
-  * [`GET /api/v1/messages/:message_id`](#get-apiv1messagesmessage_id)
-  * [`GET /api/v1/workflows`](#get-apiv1workflows)
-  * [`GET /api/v1/workflows/:workflow_id`](#get-apiv1workflowsworkflow_id)
-* [Errors](#Errors)
+Currently the API is read-only, which is useful for implementing dashboards or
+for getting the results of various workflows and feeding them into other systems.
+The REST API will be expanded as we go forward.
 
 ## Versioning
 
 This is **version 1** of ActiveWorkflow API which is indicated by the URL. This
-API may change in the future in a backwards compatible way. New endpoints and
-parameters (optional) can be added without invalidating existing functionality.
-Documented response fields may not be exhaustive - an API client should always
-expect that more fields can be returned.
+API may change in the future in a backwards compatible way. New (optional)
+endpoints and parameters may be added without invalidating existing functionality.
+The documentation here may not be exhaustive at all times—an API client should
+always expect that more fields might be returned in responses.
 
-If any incompatible changes were to be introduced, the API version would be
-updated and the new API would be served with a different URL.
+If any incompatible changes are to be introduced, the API version will be
+updated and the new API will be served at a different URL.
 
 ## Authorization
 
@@ -268,7 +262,7 @@ pairs:
 Example:
 
 ```
-GET /api/v1/workflows
+GET /api/v1/workflows/1
 ```
 
 ```json
@@ -296,6 +290,25 @@ GET /api/v1/workflows
   ]
 }
 ```
+
+### `GET /api/v1/workflows/:workflow_id/export`
+
+Get a file with the workflow and all its agents, which can be used later to
+import the workflow into another instance of ActiveWorkflow (or as a different
+user).
+
+Parameters - none.
+
+Response - a JSON file (the file name is provided with the `Content-Disposition`
+HTTP header) containing all the information about the workflow (including agents)
+that can be used to later import this workflow.
+
+Example:
+
+```
+GET /api/v1/workflows/1/export
+```
+
 
 ## Errors
 
