@@ -6,47 +6,26 @@ sidebar_label: Remote Agent API
 
 > How to Develop Your Own Activeworkflow Agents
 
-You can develop your own custom agents using ActiveWorkflow's Remote Agent API. "Remote" in this context means that **agents run in separate processes** from ActiveWorkflow itself. Communication between agents and ActiveWorkflow takes place via HTTP. Each agent is effectively an HTTP server which ActiveWorkflow connects to and interacts with via the protocol described below.
+## Overview
 
-Table of Contents:
-* [Deployment](#deployment)
-* [Protocol](#protocol)
-  * [The `register` method](#the-register-method)
-  * [The `receive` method](#the-receive-method)
-  * [The `check` method](#the-check-method)
-* [Example Agents](#example-agents)
+You can develop your own agents using ActiveWorkflow's Remote Agent API.
+&ldquo;Remote&rdquo; in this context means that **agents run in separate processes**
+from ActiveWorkflow itself. Communication between agents and ActiveWorkflow
+takes place via HTTP. Each agent is effectively an HTTP server which
+ActiveWorkflow interacts with via the protocol described below.
 
 ![img](../static/img/diagrams/remote-agents-diagram.svg "Remote Agents diagram")
 
-## Deployment
-
-The flexibility to implement remote agents using any technology stack also has a cost,
-which is that of deploying and running the agents. Each agent has to expose a single endpoint.
-ActiveWorkflow **will not** restart or interfere with your agents' process (or container)
-in any way. We suggest that you use a supervisor (e.g., systemd) of your choice, or functionality
-provided by docker and its orchestration solutions. In the near future we intend to provide some
-guidelines and examples for the most common deployment scenarios, please stay tuned.
-
-To inform ActiveWorkflow about an agent you have to set an environment variable pointing to the URL of the agent:
-
-```sh
-REMOTE_AGENT_URL=https://localhost:4567/agent_path
-```
-
-You can configure multiple agents by setting multiple environment variables with postfixed incremental numbering:
-
-```sh
-REMOTE_AGENT_URL_2=https://otherhost:80/another_agent
-```
-
-> ⚠️ Currently there is no authorisation support when connecting to remote agents, please ensure URLs are not publicly accessible.
-
 ## Protocol
 
-ActiveWorkflow talks to an agent using the HTTP protocol and all the contents (both
-requests and responses) are in JSON. Although all communication happens using a
-single endpoint, an agent has to implement and handle three "methods":
-[`register`](#the-register-method), [`receive`](#the-receive-method), and [`check`](#the-check-method).
+ActiveWorkflow talks to an agent using the HTTP protocol and all the contents
+are in JSON (both requests and responses). Although all communication happens
+using a single endpoint, **an agent has to implement and handle 3 &ldquo;methods&rdquo;:
+[register](#the-register-method), [receive](#the-receive-method),
+and [check](#the-check-method).**
+
+### Requests
+
 All requests have the following structure:
 
 ```js
@@ -58,6 +37,12 @@ All requests have the following structure:
 
 Where `method` is the name of the method, `params` is a JSON object (key/value pairs) that holds all the parameters to the `method` call.
 
+> ⚠️ Additional fields may be present in the request's JSON object, please
+> only use the ones described in this document. Any additional fields are not
+> guaranteed to exist or to have any fixed meaning.
+
+### Responses
+
 A response from the agent should have the following structure:
 
 ```js
@@ -68,15 +53,14 @@ A response from the agent should have the following structure:
 
 Where `result` is a JSON object (key/value pairs).
 
-> ⚠️ Additional fields may be present in the request's JSON object, please
-> only use the ones described in this document. Any additional fields are not
-> guaranteed to exist or to have any fixed meaning.
 
-There are three methods an agent has to implement
+### Methods
 
-### The `register` method
+There are three methods an agent has to implement.
 
-This method is used by ActiveWorkflow to retrieve an agent's metadata. It is invoked once, when ActiveWorkflow starts.
+#### The `register` method
+
+This method is used by ActiveWorkflow to retrieve an agent's metadata. It is invoked when ActiveWorkflow starts.
 
 This method doesn't use any parameters.
 
@@ -98,8 +82,8 @@ Example response:
   "result": {
     "name": "MyAgent",
     "display_name": "My Agent",
-    "description": "My First Agent",
-    "default_options": { "option": "value" }
+    "description": "This is my first agent",
+    "default_options": {"option": "value"}
   }
 }
 ```
@@ -115,7 +99,7 @@ Where:
 - `default_options`: the default options that a user can use as a starting
    point when configuring an agent; this is an object (key/value collection).
 
-### The `receive` method
+#### The `receive` method
 
 This is the method that ActiveWorkflow calls when an agent has to process a
 message. The contents of the message are in the `payload` field. Additionally
@@ -124,13 +108,13 @@ credentials that an agent may need.
 
 > ⚠️ Agents in ActiveWorkflow are **state-full entities**, but your agent
 > implementation (`receive` and `check` methods) **should be completely state-less**.
-> All the _necessary_ "state" is passed in as parameters. Your agent
+> All the _necessary_ &ldquo;state&rdquo; is passed-in as parameters. Your agent
 > implementation should not store any data except in third party systems if that
 > is the intended behaviour of an agent (i.e. an ElasticSearch agent may store
 > messages in an ElasticSearch instance, but even then the URL to that instance
 > should come from parameters). Agents can do some caching, but it should be done
-> very carefully, the agent ID is not in the parameters and you can't be sure if the
-> same agent instance will be scheduled next time).
+> very carefully. The agent ID is not in the parameters and you can't be sure if the
+> same agent instance will be scheduled next time.
 
 Example request:
 
@@ -139,7 +123,7 @@ Example request:
   "method": "receive",
   "params": {
     "message": {
-      "payload": { "a": 1, "b": 2 }
+      "payload": {"a": 1, "b": 2}
     },
     "options": {
       "option": "value",
@@ -149,7 +133,7 @@ Example request:
       "key": "value"
     },
     "credentials": [
-      { "name": "admin_email", "value": "x@example.com" }
+      {"name": "admin_email", "value": "admin@example.com"}
     ]
   }
 }
@@ -169,8 +153,7 @@ Where:
   explicitly configured by the user, like in the example above
   where the `email_credential` option explicitly refers to the `admin_email` credential.
 
-An agent should respond with the response that includes new messages emitted, log
-entries, error log entries and updated memory.
+An agent should respond with any new messages, log entries, error log entries and updated memory.
 
 Example response:
 
@@ -179,7 +162,7 @@ Example response:
   "result": {
     "errors": [
       "Something failed",
-      "Something more failed"
+      "Something else failed"
     ],
     "logs": [
       "Something happened",
@@ -210,28 +193,26 @@ Where:
   content will be **replaced** with the new content;
 
 - `messages`: optional, an array of message payloads; each payload must be an
-  object. In the example there are two messages emitted.
+  object. In the example above there are two messages emitted.
 
 
-### The `check` method
+#### The `check` method
 
-The `check` method is very much like the `receive` method, but is called on schedule
-(set by the user) and has no message to process. It should be used when you want
-your agent to perform some side effect and (optionally) to get some data from an 
-external service. For example, to check an email Inbox and emit the number of unread messages.
-
-Everything else is exactly like in the `receive` method. The `check` method can
-emit messages, write logs and errors, and update memory.
+The `check` method is very much like the `receive` method, but it is called on schedule
+(set by the user) and **has no message to process**. Everything else is exactly
+like in the [receive](#the-receive-method) method. It can be used when you want
+your agent to periodically perform some task. For example, to check an email
+Inbox and emit the number of unread messages.
 
 > ⚠️ Agents in ActiveWorkflow are **state-full entities**, but your agent
 > implementation (`receive` and `check` methods) **should be completely state-less**.
-> All the _necessary_ "state" is passed in as parameters. Your agent
+> All the _necessary_ &ldquo;state&rdquo; is passed-in as parameters. Your agent
 > implementation should not store any data except in third party systems if that
 > is the intended behaviour of an agent (i.e. an ElasticSearch agent may store
 > messages in an ElasticSearch instance, but even then the URL to that instance
 > should come from parameters). Agents can do some caching, but it should be done
-> very carefully, the agent ID is not in the parameters and you can't be sure if the
-> same agent instance will be scheduled next time).
+> very carefully. The agent ID is not in the parameters and you can't be sure if the
+> same agent instance will be scheduled next time.
 
 Example request:
 
@@ -246,9 +227,9 @@ Example request:
     "memory": {
       "key": "value"
     },
-    "credentials": {
-      "email": "x@example.com"
-    }
+    "credentials": [
+      {"name": "admin_email", "value": "admin@example.com"}
+    ]
   }
 }
 ```
@@ -261,7 +242,7 @@ Example response:
   "result": {
     "errors": [
       "Something failed",
-      "Something more failed"
+      "Something else failed"
     ],
     "logs": [
       "Something happened",
@@ -292,7 +273,39 @@ Where:
   content will be **replaced** with the new content;
 
 - `messages`: optional, an array of message payloads; each payload must be an
-  object. In the example there are two messages emitted.
+  object. In the example above there are two messages emitted.
+
+## Deployment
+
+The flexibility to implement remote agents using any technology stack also has a cost,
+which is having to deploy and run the agents. Each agent has to expose a single endpoint.
+ActiveWorkflow **will not restart or interfere with your agents' process (or container)**
+in any way. We suggest using a supervisor (e.g., systemd) of your choice, or functionality
+provided by docker and its orchestration solutions. In the near future we intend to provide some
+guidelines and examples for the most common deployment scenarios; please stay tuned.
+
+To inform ActiveWorkflow about an agent you have to set an environment variable pointing to the URL of the agent:
+
+```sh
+REMOTE_AGENT_URL=https://localhost:4567/agent_path
+```
+
+You can configure multiple agents by setting multiple environment variables with postfixed incremental numbering:
+
+```sh
+REMOTE_AGENT_URL_2=https://otherhost:80/another_agent
+```
+
+In development if you are using [docker to run ActiveWorkflow](/#running-locally-with-docker),
+you'll need to use the `-e` parameter to `docker run` to pass `REMOTE_AGENT_URL` through
+to ActiveWorkflow. The address in the URL will also have to be updated to match where the agent
+is running (`127.0.0.1` is unlikely to be correct). Docker provides `host.docker.internal` for the host IP.
+Thus, you could run:
+```sh
+docker run -e REMOTE_AGENT_URL="http://host.docker.internal:5000/" -p 3000:3000 --rm automaticmode/active_workflow
+```
+
+> ⚠️ Currently there is no authorisation support when connecting to remote agents, please ensure URLs are not publicly accessible.
 
 ## Example Agents
 
