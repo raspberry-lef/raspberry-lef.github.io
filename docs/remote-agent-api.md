@@ -66,7 +66,8 @@ An agent has to **implement responses to 3 methods: [register](#the-register-met
 
 #### The `register` method
 
-This method is used by ActiveWorkflow to retrieve an agent's metadata. It is invoked when ActiveWorkflow starts.
+This method is used by ActiveWorkflow to retrieve an agent's metadata. It is
+invoked when ActiveWorkflow starts.
 
 This method doesn't use any parameters.
 
@@ -113,14 +114,13 @@ ActiveWorkflow submits all the configuration, memory (state), and user
 credentials that an agent may need.
 
 > ⚠️ Agents in ActiveWorkflow are **state-full entities**, but your agent
-> implementation (`receive` and `check` methods) **should be completely state-less**.
-> All the _necessary_ &ldquo;state&rdquo; is passed-in as parameters. Your agent
-> implementation should not store any data except in third party systems if that
-> is the intended behaviour of an agent (i.e. an ElasticSearch agent may store
+> implementation (the `receive` and `check` methods) **should be completely state-less**.
+> All the necessary &ldquo;state&rdquo; is passed in the parameters. Your agent
+> implementation should not store any data, except in third party systems if that
+> is the intended behaviour of the agent (i.e. an ElasticSearch agent may store
 > messages in an ElasticSearch instance, but even then the URL to that instance
-> should come from parameters). Agents can do some caching, but it should be done
-> very carefully. The agent ID is not in the parameters and you can't be sure if the
-> same agent instance will be scheduled next time.
+> should come from the parameters the agent receives). If you do any caching,
+> please do so very carefully.
 
 Example request:
 
@@ -211,14 +211,13 @@ your agent to periodically perform some task. For example, to check an email
 Inbox and emit the number of unread messages.
 
 > ⚠️ Agents in ActiveWorkflow are **state-full entities**, but your agent
-> implementation (`receive` and `check` methods) **should be completely state-less**.
-> All the _necessary_ &ldquo;state&rdquo; is passed-in as parameters. Your agent
-> implementation should not store any data except in third party systems if that
-> is the intended behaviour of an agent (i.e. an ElasticSearch agent may store
+> implementation (the `receive` and `check` methods) **should be completely state-less**.
+> All the necessary &ldquo;state&rdquo; is passed in the parameters. Your agent
+> implementation should not store any data, except in third party systems if that
+> is the intended behaviour of the agent (i.e. an ElasticSearch agent may store
 > messages in an ElasticSearch instance, but even then the URL to that instance
-> should come from parameters). Agents can do some caching, but it should be done
-> very carefully. The agent ID is not in the parameters and you can't be sure if the
-> same agent instance will be scheduled next time.
+> should come from the parameters the agent receives). If you do any caching,
+> please do so very carefully.
 
 Example request:
 
