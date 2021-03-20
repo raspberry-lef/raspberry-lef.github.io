@@ -18,15 +18,15 @@ ActiveWorkflow interacts with via the protocol described below.
 
 ## Protocol
 
-ActiveWorkflow talks to an agent using the HTTP protocol and all the contents
-are in JSON (both requests and responses). Although all communication happens
-using a single endpoint, **an agent has to implement and handle 3 &ldquo;methods&rdquo;:
+ActiveWorkflow talks to an agent over HTTP and all the contents are in JSON
+(both requests and responses). Although all communication happens using a
+single endpoint, **an agent has to implement and handle 3 &ldquo;methods&rdquo;:
 [register](#the-register-method), [receive](#the-receive-method),
 and [check](#the-check-method).**
 
 ### Requests
 
-All requests have the following structure:
+All requests coming from ActiveWorkflow's agent API have the following structure:
 
 ```js
 {
@@ -47,7 +47,8 @@ method below.
 
 ### Responses
 
-A response from the agent should have the following structure:
+A response from the agent to ActiveWorkflow's agent API should always have the
+following structure:
 
 ```js
 {
@@ -67,24 +68,25 @@ An agent has to **implement responses to 3 methods: [register](#the-register-met
 #### The `register` method
 
 This method is used by ActiveWorkflow to retrieve an agent's metadata. It is
-invoked when ActiveWorkflow starts.
+sent when ActiveWorkflow starts. It does not have any parameters.
 
-This method doesn't use any parameters.
+##### Register Request
 
-Example request:
+A [register](#the-register-method) request looks like this:
 
-```js
+```json
 {
   "method": "register",
   "params": {}
 }
 ```
 
-An agent has to respond with the metadata describing it.
+##### Register Response
 
-Example response:
+ An agent has to respond with the metadata describing it. An example response
+ to [register](#the-register-method) looks like the following:
 
-```js
+```json
 {
   "result": {
     "name": "MyAgent",
@@ -100,7 +102,8 @@ Where:
 - `name`: the name of an agent to be used in the agent type registry. It must be a
   unique identifier written in CamelCase;
 - `display_name`: the name of an agent to be used for UI purposes;
-- `description`: the (Markdown) description of an agent. It should include
+- `description`: the description of an agent
+   (in [markdown](https://en.wikipedia.org/wiki/Markdown)). It should include
    an introduction (the first line) and usage information, including a
    description of all configuration options;
 - `default_options`: the default options that a user can use as a starting
@@ -122,9 +125,11 @@ credentials that an agent may need.
 > should come from the parameters the agent receives). If you do any caching,
 > please do so very carefully.
 
-Example request:
+##### Receive Request
 
-```js
+An example [receive](#the-receive-method) request looks like the following:
+
+```json
 {
   "method": "receive",
   "params": {
@@ -159,11 +164,13 @@ Where:
   explicitly configured by the user, like in the example above
   where the `email_credential` option explicitly refers to the `admin_email` credential.
 
-An agent should respond with any new messages, log entries, error log entries and updated memory.
+##### Receive Response
 
-Example response:
+ An agent should respond with any new messages, log entries, error log entries
+ and updated memory. An example response to [receive](#the-receive-method)
+ looks like the following:
 
-```js
+```json
 {
   "result": {
     "errors": [
@@ -191,9 +198,9 @@ Example response:
 
 Where:
 
-- `errors`: optional, an array of error strings if errors occurred during execution;
+- `errors`: optional, an array of non-empty error strings if errors occurred during execution;
 
-- `logs`: optional, an array of strings to log, for debugging/info purposes;
+- `logs`: optional, an array of non-empty strings to log, for debugging/info purposes;
 
 - `memory`: optional, new content of the memory for an agent, old memory
   content will be **replaced** with the new content;
@@ -219,9 +226,11 @@ Inbox and emit the number of unread messages.
 > should come from the parameters the agent receives). If you do any caching,
 > please do so very carefully.
 
-Example request:
+##### Check Request
 
-```js
+An example [check](#the-check-method) request looks like the following:
+
+```json
 {
   "method": "check",
   "params": {
@@ -239,10 +248,11 @@ Example request:
 }
 ```
 
+##### Check Response
 
-Example response:
+An example response to [check](#the-check-method) looks like the following:
 
-```js
+```json
 {
   "result": {
     "errors": [
@@ -270,9 +280,9 @@ Example response:
 
 Where:
 
-- `errors`: optional, an array of error strings if errors occurred during execution;
+- `errors`: optional, an array of non-empty error strings if errors occurred during execution;
 
-- `logs`: optional, an array of strings to log, for debugging/info purposes;
+- `logs`: optional, an array of non-empty strings to log, for debugging/info purposes;
 
 - `memory`: optional, new content of the memory for an agent, old memory
   content will be **replaced** with the new content;
@@ -292,7 +302,7 @@ guidelines and examples for the most common deployment scenarios; please stay tu
 To inform ActiveWorkflow about an agent you have to set an environment variable pointing to the URL of the agent:
 
 ```sh
-REMOTE_AGENT_URL=https://localhost:4567/agent_path
+REMOTE_AGENT_URL=https://localhost:5000/agent_path
 ```
 
 You can configure multiple agents by setting multiple environment variables with postfixed incremental numbering:
@@ -302,7 +312,7 @@ REMOTE_AGENT_URL_2=https://otherhost:80/another_agent
 ```
 
 In development if you are using [docker to run ActiveWorkflow](/#running-locally-with-docker),
-you'll need to use the `-e` parameter to `docker run` to pass `REMOTE_AGENT_URL` through
+you will need to use the `-e` parameter to `docker run` to pass `REMOTE_AGENT_URL` through
 to ActiveWorkflow. The address in the URL will also have to be updated to match where the agent
 is running (`127.0.0.1` is unlikely to be correct). Docker provides `host.docker.internal` for the host IP.
 Thus, you could run:
