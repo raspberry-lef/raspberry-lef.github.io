@@ -65,7 +65,7 @@ structure of `result` please see the documentation about each method below.
 An agent has to **implement responses to 3 methods: [register](#the-register-method),
 [check](#the-check-method), [receive](#the-receive-method)**. 
 
-#### The `register` method
+#### The `register` Method
 
 This method is used by ActiveWorkflow to retrieve an agent's metadata. It is
 sent when ActiveWorkflow starts. It does not have any parameters.
@@ -109,7 +109,7 @@ Where:
 - `default_options`: the default options that a user can use as a starting
    point when configuring an agent; this is an object (key/value collection).
 
-#### The `receive` method
+#### The `receive` Method
 
 This is the method that ActiveWorkflow calls when an agent has to process a
 message. The contents of the message are in the `payload` field. Additionally
@@ -209,7 +209,7 @@ Where:
   object. In the example above there are two messages emitted.
 
 
-#### The `check` method
+#### The `check` Method
 
 The `check` method is very much like the `receive` method, but it is called on schedule
 (set by the user) and **has no message to process**. Everything else is exactly
