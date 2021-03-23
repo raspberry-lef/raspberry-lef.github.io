@@ -12,35 +12,37 @@ ActiveWorkflow exposes a REST API that allows you to query and control your
 agents and workflows programmatically. All responses returned by the API are
 in JSON format.
 
-Currently the API is read-only, which is useful for implementing dashboards or
-for acquiring the results of various workflows and feeding them into other systems.
-The REST API will be expanded as we go forward.
+Currently the API is read-only. It can be used for implementing dashboards or
+for acquiring the results of various workflows and feeding them into other
+systems. The REST API will be expanded in the near future to offer functionality
+to create workflows and other operations.
 
 ## Versioning
 
-This is **version 1** of ActiveWorkflow API which is indicated by the URL. This
-API may change in the future in a backwards compatible way. New (optional)
-endpoints and parameters may be added without invalidating existing functionality.
-The documentation here may not be exhaustive at all times—an API client should
-always expect that more fields might be returned in responses.
+This is **version 1** of ActiveWorkflow API, which is indicated in the URL (`/v1/`).
+This version of the API may change in the future in a backwards compatible way.
+New (optional) endpoints and parameters may be added without invalidating
+existing functionality. Also please note that the documentation here may not
+be exhaustive at all times. An API client should always expect that more
+fields may be returned in responses.
 
 If any incompatible changes are to be introduced, the API version will be
 updated and the new API will be served at a different URL.
 
 ## Authorization
 
-The ActiveWorkflow API uses a [JsonWebToken](https://jwt.io/introduction/)-based
+The ActiveWorkflow REST API uses a [JsonWebToken](https://jwt.io/introduction/)-based
 authorization mechanism. You can acquire an authorization token by connecting to
-the usual ActiveWorkflow web UI with you user email and password. You can then find
-it under `Account` in `User Settings`.
+the usual ActiveWorkflow web interface with you user credentials. You can then
+find your token under 'Account' in 'User Settings'.
 
-Note: an authorization token is connected to the account of a specific user and therefore
-can only provide access to the system only on behalf of that user.
+Note: an authorization token is connected to the account of a specific user
+and therefore can only provide access to the system on behalf of that user.
 
 Currently API authorization tokens do not expire and allow full use of the
-API. Expiring and scoped APIs (like **read only**) may be introduced later. An API
-client should treat an authorization token as an opaque string and should not assume
-anything about its format or content.
+API. Expiring and scoped APIs (like 'read only') may be introduced later. An
+API client should treat an authorization token as an opaque string and should
+not assume anything about its format or content.
 
 To authorize a request a client should put the authorization token into
 an HTTP `Authorization` header in the following format:
@@ -49,9 +51,7 @@ an HTTP `Authorization` header in the following format:
 Authorization: Bearer :token:
 ```
 
-Where `:token:` is the authorization token.
-
-Example invocation using curl:
+Where `:token:` is the authorization token. You can find an example using `curl` below:
 
 ```sh
 curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.kG4Si_1WJyGrsvm9zTcubjpYKzCubgaGdyakGwuwaCs" http://localhost:3000/api/v1/workflows
@@ -63,20 +63,20 @@ curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.kG4Si_1WJ
 
 #### `GET /api/v1/agents`
 
-List all of a user's agents.
+Get a list of a user's agents.
 
 Parameters - none.
 
-Response - array of hashes where each hash represents an agent. Each agent's
-hash has the following key/value pairs:
+Response - an array of JSON objects where each object represents an agent.
+Each object has the following keys:
 
-- `id` - identifier of the agent;
-- `name` - name of the agent;
-- `type` - string indicating the type of the agent;
-- `disabled` - true if agent is disabled, false otherwise;
-- `messages_count` - number of messages emitted by this agent;
-- `source` - array of the source agents, each entry is a hash with `id`
-  property.
+- `id` - a unique identifier for the agent;
+- `name` - the name of the agent;
+- `type` - a string indicating the type of the agent;
+- `disabled` - 'true' if agent is currently disabled, 'false' otherwise;
+- `messages_count` - the number of messages that have been emitted by this agent;
+- `sources` - an array of agent objects that this agent receives messages from, each
+              object has the `id` of an agent.
 
 Example:
 
@@ -88,7 +88,7 @@ GET /api/v1/agents
 [
   {
     "id": 1,
-    "name": "Rerieve",
+    "name": "RetrieveStatistics",
     "type": "Agents::WebsiteAgent",
     "disabled": false,
     "messages_count": 2,
@@ -96,30 +96,30 @@ GET /api/v1/agents
   },
   {
     "id": 2,
-    "name": "Email",
+    "name": "EmailStatistics",
     "type": "Agents::EmailAgent",
     "disabled": false,
     "messages_count": 0,
-    "sources": [ { "id": 1 } ]
+    "sources": [{"id": 1}]
   }
 ]
 ```
 
 #### `GET /api/v1/agents/:agent_id`
 
-Get info on specific agent.
+Get info about a specific agent.
 
 Parameters - none.
 
-Response - a hash representing an agent that has the following key/value pairs:
+Response - a JSON object representing an agent that has the following keys:
 
-- `id` - identifier of the agent;
-- `name` - name of the agent;
-- `type` - string indicating the type of the agent;
-- `disabled` - true if agent is disabled, false otherwise;
-- `messages_count` - number of messages emitted by this agent;
-- `source` - array of the source agents, each entry is a hash with `id`
-  property.
+- `id` - the unique identifier of the agent;
+- `name` - the name of the agent;
+- `type` - a string indicating the type of the agent;
+- `disabled` - 'true' if the agent is currently disabled, 'false' otherwise;
+- `messages_count` - the number of messages that have been emitted by this agent;
+- `sources` - an array of agent objects that this agent receives messages from,
+              each object has the `id` of an agent.
 
 Example:
 
@@ -129,12 +129,12 @@ GET /api/v1/agents/1
 
 ```json
 {
-  "id": 1,
-  "name": "Rerieve",
-  "type": "Agents::WebsiteAgent",
+  "id": 2,
+  "name": "Email",
+  "type": "Agents::EmailAgent",
   "disabled": false,
-  "messages_count": 2,
-  "sources": []
+  "messages_count": 0,
+  "sources": [{"id": 1}]
 }
 ```
 
@@ -148,17 +148,16 @@ Parameters:
           *after* the given time;
 
 `limit` - integer, only return this number of the *latest* created messages. By
-          default all the messages are returned.
+          default all messages are returned.
 
-Response - an array of hashes where each hash represents a message and has the
-following key/value pairs:
+Response - an array of JSON objects where each object represents a message and
+has the following keys:
 
-- `id` - identifier of the message;
-- `agent_id` - identifier of emitting agent;
+- `id` - a unique identifier for the message;
+- `agent_id` - the unique identifier of emitting agent;
 - `created_at` - datetime (ISO 8601 string) of when the message was created;
-- `expires_at` - datetime (ISO 8601 string) of when the message expires,
-                 never if null.
-
+- `expires_at` - datetime (ISO 8601 string) of when the message expires, 'null'
+                 indicates that the message never expires.
 Example:
 
 ```
@@ -186,18 +185,18 @@ GET /api/v1/agents/1/messages?limit=1&after=2019-10-20T01:10:10.256-8:00
 
 #### `GET /api/v1/messages/:message_id`
 
-Get the message with the payload.
+Get a message with its payload.
 
 Parameter - none.
 
-Response - a hash representing a message with the following key/value pairs:
+Response - a JSON object representing a message with the following keys:
 
 - `id` - identifier of a message;
-- `agent_id` - identifier of emitting agent;
+- `agent_id` - identifier of the emitting agent;
 - `created_at` - datetime (ISO 8601 string) of when a message was created;
 - `expires_at` - datetime (ISO 8601 string) of when a message expires, never if
                  null;
-- `payload` - JSON document containing payload of the message.
+- `payload` - JSON object containing the payload of the message.
 
 Example:
 
@@ -226,12 +225,12 @@ Get a list of workflows.
 
 Parameters - none.
 
-Response - an array of hashes where each hash represent a workflow and has the
-following key/value pairs:
+Response - an array of JSON objects where each object represents a workflow
+and has the following keys:
 
-- `id` - identifier of the workflow;
-- `name` - name of the workflow;
-- `description` - description of the workflow.
+- `id` - the identifier of the workflow;
+- `name` - the name of the workflow;
+- `description` - the description of the workflow.
 
 Example:
 
@@ -244,7 +243,7 @@ GET /api/v1/workflows
   {
     "id": 1,
     "name": "My Workflow",
-    "description": "This workflow does stuff."
+    "description": "This workflow does something."
   }
 ]
 ```
@@ -255,15 +254,15 @@ Get a workflow with a list of agents that participate in that workflow.
 
 Parameters - none.
 
-Response - a hash that represents the workflow with the following key/value
-pairs:
+Response - a JSON object that represents the workflow with the following keys:
 
 
-- `id` - identifier of the workflow;
-- `name` - name of the workflow;
-- `description` - description of the workflow,
-- `agents` - array of hashes that describe agents participating in this workflow,
-             format matches response of the `/api/v1/agents` endpoint.
+- `id` - the identifier of the workflow;
+- `name` - the name of the workflow;
+- `description` - the description of the workflow,
+- `agents` - an array of JSON objects that describe the agents participating
+             in this workflow, the format matches that of the `/api/v1/agents`
+             endpoint.
 
 Example:
 
@@ -275,11 +274,11 @@ GET /api/v1/workflows/1
 {
   "id": 1,
   "name": "My Workflow",
-  "description": "This workflow does stuff.",
+  "description": "This workflow does something.",
   "agents": [
     {
       "id": 1,
-      "name": "Rerieve",
+      "name": "RetrieveStatistics",
       "type": "Agents::WebsiteAgent",
       "disabled": false,
       "messages_count": 2,
@@ -287,11 +286,11 @@ GET /api/v1/workflows/1
     },
     {
       "id": 2,
-      "name": "Email",
+      "name": "EmailStatistics",
       "type": "Agents::EmailAgent",
       "disabled": false,
       "messages_count": 0,
-      "sources": [ { "id": 1 } ]
+      "sources": [{"id": 1}]
     }
   ]
 }
