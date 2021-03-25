@@ -4,7 +4,7 @@ title: Client REST API
 sidebar_label: Client REST API
 ---
 
-> How to Query and Control Your Agents and Workflows Programmatically
+> The way to query and control your agents and workflows programmatically
 
 ## Overview
 

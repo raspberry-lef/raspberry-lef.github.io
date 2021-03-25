@@ -37,6 +37,9 @@ module.exports = {
       apiKey: '0b048d550c237f1098bcba9c82def19a',
       indexName: 'activeworkflow',
     },
+    prism: {
+      additionalLanguages: ['ruby'],
+    },
     footer: {
       style: 'dark',
       logo: {

@@ -11,5 +11,10 @@ module.exports = {
       'deployment',
       'roadmap',
     ],
+    'Helper Libraries': [
+      'activeworkflow-agent-python',
+      'activeworkflow-agent-ruby',
+    ],
+
   },
 };
