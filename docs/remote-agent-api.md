@@ -325,3 +325,7 @@ docker run -e REMOTE_AGENT_URL="http://host.docker.internal:5000/" -p 3000:3000 
 ## Example Agents
 
 Please see the [Examples of Custom Agents](agent-examples) page, which you will hopefully find useful as a reference or as a starting point for making your own agents.
+
+## Libraries
+
+We currently have two libraries that could help you to write your own agents in Ruby or Python. See [ActiveWorkflow Agent Ruby](activeworkflow-agent-ruby) and [ActiveWorkflow Agent Python](activeworkflow-agent-python).
