@@ -8,11 +8,12 @@ sidebar_label: Remote Agent API
 
 ## Overview
 
-You can develop your own agents using ActiveWorkflow's Remote Agent API.
-&ldquo;Remote&rdquo; in this context means that **agents run in separate processes**
-from ActiveWorkflow itself. Communication between agents and ActiveWorkflow
-takes place via HTTP. Each agent is effectively an HTTP server which
-ActiveWorkflow interacts with via the protocol described below.
+You can create your own agents by developing simple services that implement
+ActiveWorkflow's Remote Agent API. &ldquo;Remote&rdquo; in this context means
+that **agents run in separate processes** from ActiveWorkflow itself.
+Communication between agents and ActiveWorkflow takes place via HTTP. Each
+agent is effectively an HTTP service or microservice which ActiveWorkflow
+interacts with via the RPC protocol described below.
 
 ![img](../static/img/diagrams/remote-agents-diagram.svg "Remote Agents diagram")
 

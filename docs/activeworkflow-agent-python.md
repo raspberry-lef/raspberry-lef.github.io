@@ -10,9 +10,9 @@ The `activeworkflow_agent` library helps you to write your own ActiveWorkflow
 agents in Python using ActiveWorkflow's [remote agent API](remote-agent-api).
 &ldquo;Remote&rdquo; in this context means that agents run in separate processes
 from ActiveWorkflow itself. Communication between agents and ActiveWorkflow
-takes place via HTTP. Each agent is effectively an HTTP server which ActiveWorkflow
-connects to and interacts with via the [remote agent API protocol](remote-agent-api#protocol).
-
+takes place via HTTP. Each agent is effectively an HTTP service or microservice
+which ActiveWorkflow connects to and interacts with as long as it supports the
+[remote agent API protocol](remote-agent-api#protocol).
 
 ## Installation
 
@@ -41,28 +41,6 @@ For more details please see the [remote agent API protocol](remote-agent-api#pro
 
 To deal with the protocol in your agent implementation this library offers four
 helper classes that are described below.
-
-### ParsedRequest
-**`ParsedRequest`** is a helper class to parse the content of a [request](remote-agent-api#protocol)
-from the [ActiveWorkflow Agent API](remote-agent-api). A ParsedRequest object
-always has the following attributes:
-
-* method: a string containing the method called on the agent.
-* options: a dictionary with all the agent options.
-* memory: a dictionary with the state of the agent.
-* credentials: a list of dictionaries containing credentials that the agent might need.
-* message: a dictionary containing the message the agent received.
-
-```python
->>> import activeworkflow_agent as aw
->>> request = aw.ParsedRequest(request.json)
->>> request.method       # => "receive"
->>> request.options      # => {"some": "option"}
->>> request.memory       # => {"could": {"be": "anything"}}
->>> request.credentials  # => [{"name": "admin_email", "value": "admin@example.com"}]
->>> request.message      # => {"a": 1, "b": 2}
-
-```
 
 ### RegisterResponse
 **`RegisterResponse`** is a helper class to construct a response to the
@@ -117,9 +95,32 @@ the ['check' method](remote-agent-api#the-check-method) API call.
 
 ```python
 >>> import activeworkflow_agent as aw
+>>> response = aw.ReceiveResponse()
 >>> response.add_logs("New message received", "Message processed")
 >>> response.to_json()
 '{"result": {"errors": [], "logs": ["New message received", "Message processed"], "memory": {}, "messages": []}}'
+```
+
+### ParsedRequest
+**`ParsedRequest`** is a helper class to parse the content of a [request](remote-agent-api#protocol)
+from the [ActiveWorkflow Agent API](remote-agent-api). A ParsedRequest object
+always has the following attributes:
+
+* method: a string containing the method called on the agent.
+* options: a dictionary with all the agent options.
+* memory: a dictionary with the state of the agent.
+* credentials: a list of dictionaries containing credentials that the agent might need.
+* message: a dictionary containing the message the agent received.
+
+```python
+>>> import activeworkflow_agent as aw
+>>> request = aw.ParsedRequest(request.json)
+>>> request.method       # => "receive"
+>>> request.options      # => {"some": "option"}
+>>> request.memory       # => {"could": {"be": "anything"}}
+>>> request.credentials  # => [{"name": "admin_email", "value": "admin@example.com"}]
+>>> request.message      # => {"a": 1, "b": 2}
+
 ```
 
 ## Example Agent
