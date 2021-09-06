@@ -32,12 +32,6 @@ Each agent comes with inline documentation within ActiveWorkflow's web interface
     </td>
   </tr>
   <tr>
-    <td><strong>FTP Site Agent</strong></td>
-    <td>
-      Checks an FTP site and creates messages based on newly uploaded files in a directory. It can also create files on an FTP server.
-    </td>
-  </tr>
-  <tr>
     <td><strong>Website Agent</strong></td>
     <td>Scrapes websites, XML documents, or JSON feeds and can create messages based on the results.</td>
   </tr>
@@ -52,10 +46,6 @@ Each agent comes with inline documentation within ActiveWorkflow's web interface
   <tr>
     <td><strong>Email&nbsp;Digest&nbsp;Agent</strong></td>
     <td>Collects messages and sends them in bulk via periodic emails according to schedule.</td>
-  </tr>
-  <tr>
-    <td><strong>IMAP Folder Agent</strong></td>
-    <td>Checks IMAP servers in specified folders and creates messages based on new mails found since the last run.</td>
   </tr>
   <tr>
     <td><strong>TLS Check Agent</strong></td>
