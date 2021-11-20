@@ -9,7 +9,7 @@ The principles we follow in developing ActiveWorkflow are
 Below you will find an overview of upcoming features and
 improvements we wish to carry out in 2021-2022.
 
-### Roadmap for 2021
+### Roadmap for 2021-2022
 
 * **Libraries**:
   * Helper libraries for creating agents in various languages using the
