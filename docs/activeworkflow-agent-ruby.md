@@ -188,7 +188,7 @@ def respond_to_check
 end
 
 def respond_to_receive(parsed_request)
-  response = ActiveWorkflowAgent::CheckResponse.new
+  response = ActiveWorkflowAgent::ReceiveResponse.new
   response.add_errors("Log an error", "Another error")
   # Devise some memory hash.
   memory = {
